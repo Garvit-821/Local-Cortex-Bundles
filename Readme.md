@@ -5,33 +5,32 @@
 ![Bundles](https://img.shields.io/badge/bundles-4-orange)
 
 **Pre‑chunked, pre‑vectorized dataset bundles of landmark Indian judgments, statutes, and legal frameworks.**  
-Built to extend the knowledge base of the [Legal-Cortex Workstation](https://github.com/your-org/legal-cortex) completely offline.
+Built to extend the knowledge base of the [Legal-Cortex Workstation]([https://github.com/your-org/legal-cortex](https://github.com/Garvit-821/Private-Legal-Research-Agent)) completely offline.
 
 ---
 
 ## 📚 Table of Contents
 
-- [💡 Why This Exists](#-why-this-exists)
-- [📂 Bundle Anatomy](#-bundle-anatomy)
+- [ Why This Exists](#-why-this-exists)
+- [ Bundle Anatomy](#-bundle-anatomy)
   - [File Structure](#file-structure)
-  - [The `manifest.json` Standard](#the-manifestjson-standard)
-- [📦 Available Bundles](#-available-bundles)
-- [⚙️ How It Works with Legal-Cortex](#️-how-it-works-with-legal-cortex)
-- [🚀 Getting Started](#-getting-started)
+- [ Available Bundles](#-available-bundles)
+- [ How It Works with Legal-Cortex](#️-how-it-works-with-legal-cortex)
+- [ Getting Started](#-getting-started)
   - [For Legal-Cortex Users](#for-legal-cortex-users)
   - [For Developers & Researchers](#for-developers--researchers)
-- [🤝 Contribution Guide](#-contribution-guide)
+- [ Contribution Guide](#-contribution-guide)
   - [Prerequisites](#prerequisites)
   - [Step‑by‑Step Compilation](#stepbystep-compilation)
   - [Metadata Rules](#metadata-rules)
   - [Submitting a Bundle](#submitting-a-bundle)
-- [🛡️ Data Sanitization Policy](#️-data-sanitization-policy)
-- [📄 License](#-license)
-- [🙏 Acknowledgments](#-acknowledgments)
+- [ Data Sanitization Policy](#️-data-sanitization-policy)
+- [ License](#-license)
+- [ Acknowledgments](#-acknowledgments)
 
 ---
 
-## 💡 Why This Exists
+##  Why This Exists
 
 Local, on‑device AI agents have a critical limitation: once disconnected from cloud pipelines, their knowledge freezes in time. Traditional internet‑scraping “legal agents” are often contaminated by media trials, sensationalised blogs, and biased commentary.
 
@@ -41,7 +40,7 @@ Because every bundle is **pre‑embedded using a fixed, reproducible pipeline**,
 
 ---
 
-## 📂 Bundle Anatomy
+##  Bundle Anatomy
 
 Each bundle is compressed into a standard distribution archive (`.zip`) containing three core components.
 
@@ -91,20 +90,20 @@ Every bundle carries a machine‑readable manifest that describes the dataset an
 
 ---
 
-## 📦 Available Bundles
+##  Available Bundles
 
 | Bundle ID             | Target Domain / Era         | Size    | Focus Areas                                                    | Status    |
 |-----------------------|-----------------------------|---------|----------------------------------------------------------------|-----------|
-| `sc-criminal-1990`    | Supreme Court (1990–2000)   | ~45 MB  | Custodial Rights, Bail Jurisprudence, FIR Quashing             | 🔴 Upcoming |
-| `sc-insolvency-2016`  | SC & NCLAT (2016–2026)      | ~110 MB | IBC amendments, Moratorium interpretations, CIRP               | 🔴 Upcoming |
-| `sc-taxation-direct`  | Income Tax Landmark Cases   | ~85 MB  | Corporate tax, Assessment procedures, Anti‑evasion             | 🔴 Upcoming |
-| `bnss-bns-bsa-2023`   | New Criminal Laws Transition| ~20 MB  | Comparative mapping: CrPC → BNSS, IPC → BNS                    | 🔴 Upcoming |
+| `sc-criminal-1990`    | Supreme Court (1990–2000)   | ~45 MB  | Custodial Rights, Bail Jurisprudence, FIR Quashing             |  🔴 Upcoming  |
+| `sc-insolvency-2016`  | SC & NCLAT (2016–2026)      | ~110 MB | IBC amendments, Moratorium interpretations, CIRP               |  🔴 Upcoming  |
+| `sc-taxation-direct`  | Income Tax Landmark Cases   | ~85 MB  | Corporate tax, Assessment procedures, Anti‑evasion             |  🔴 Upcoming  |
+| `bnss-bns-bsa-2023`   | New Criminal Laws Transition| ~20 MB  | Comparative mapping: CrPC → BNSS, IPC → BNS                    |  🔴 Upcoming  |
 
 More bundles are being curated. See the [registry](/registry) for planned and in‑progress submissions.
 
 ---
 
-## ⚙️ How It Works with Legal-Cortex
+##  How It Works with Legal-Cortex
 
 The [Legal-Cortex desktop application](https://github.com/your-org/legal-cortex) consumes these packages through a **background downloader** that appends vectors dynamically at runtime.
 
@@ -117,7 +116,7 @@ The [Legal-Cortex desktop application](https://github.com/your-org/legal-cortex)
 
 ---
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### For Legal-Cortex Users
 
@@ -137,7 +136,7 @@ If you want to use these bundles outside of Legal-Cortex:
 
 ---
 
-## 🤝 Contribution Guide
+##  Contribution Guide
 
 We welcome contributions from advocates, legal‑tech engineers, and researchers who want to expand this public legal dataset library. Follow the compilation rules below to submit a pre‑vectorized bundle.
 
@@ -201,7 +200,7 @@ We welcome contributions from advocates, legal‑tech engineers, and researchers
 
 ---
 
-## 🛡️ Data Sanitization Policy
+##  Data Sanitization Policy
 
 To uphold advocate‑client confidentiality and comply with the **Digital Personal Data Protection (DPDP) Act, 2023**, any contributor submitting litigation profiles or judgments from lower courts **must** run their content through a local Named Entity Recognition (NER) model **before** chunking.
 
@@ -215,7 +214,7 @@ This repository is intended for **research, training, and professional assistanc
 
 ---
 
-## 📄 License
+##  License
 
 The data distribution framework (scripts, manifests, indexing logic) is released under the [MIT License](LICENSE).  
 
@@ -223,7 +222,7 @@ The underlying judicial materials and statutory texts are compiled from **public
 
 ---
 
-## 🙏 Acknowledgments
+##  Acknowledgments
 
 - The **Supreme Court of India** for making landmark judgments openly accessible through e‑SCR and other portals.  
 - The **Ollama** project for providing a consistent local embedding pipeline.  
