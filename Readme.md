@@ -95,9 +95,9 @@ Every bundle carries a machine‑readable manifest that describes the dataset an
 
 | Bundle ID             | Target Domain / Era         | Size    | Focus Areas                                                    | Status    |
 |-----------------------|-----------------------------|---------|----------------------------------------------------------------|-----------|
-| `sc-criminal-1990`    | Supreme Court (1990–2000)   | ~45 MB  | Custodial Rights, Bail Jurisprudence, FIR Quashing             | 🟢 Active |
-| `sc-insolvency-2016`  | SC & NCLAT (2016–2026)      | ~110 MB | IBC amendments, Moratorium interpretations, CIRP               | 🟢 Active |
-| `sc-taxation-direct`  | Income Tax Landmark Cases   | ~85 MB  | Corporate tax, Assessment procedures, Anti‑evasion             | 🟡 Beta   |
+| `sc-criminal-1990`    | Supreme Court (1990–2000)   | ~45 MB  | Custodial Rights, Bail Jurisprudence, FIR Quashing             | 🔴 Upcoming |
+| `sc-insolvency-2016`  | SC & NCLAT (2016–2026)      | ~110 MB | IBC amendments, Moratorium interpretations, CIRP               | 🔴 Upcoming |
+| `sc-taxation-direct`  | Income Tax Landmark Cases   | ~85 MB  | Corporate tax, Assessment procedures, Anti‑evasion             | 🔴 Upcoming |
 | `bnss-bns-bsa-2023`   | New Criminal Laws Transition| ~20 MB  | Comparative mapping: CrPC → BNSS, IPC → BNS                    | 🔴 Upcoming |
 
 More bundles are being curated. See the [registry](/registry) for planned and in‑progress submissions.
