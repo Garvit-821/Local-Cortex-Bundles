@@ -48,35 +48,31 @@ Each bundle is compressed into a standard distribution archive (`.zip`) containi
 ### File Structure
 
 ```
-sc-criminal-1990/
-├── raw_judgments/          # Optional: original judgment texts (for citation & audit)
-│   ├── sc_1990_abc_v_state.txt
-│   └── sc_1990_xyz_v_union.txt
-├── vector_store/           # Pre‑computed vector layers
-│   ├── index.faiss         # FAISS index (or serialized NumPy arrays)
-│   └── index.pkl           # Mapping metadata (if needed)
-└── manifest.json           # Structural index mapping vectors → citations
+coi-baseline.zip/
+├── manifest.json           # Structural index tracking chunk metadata and text contents
+└── vectors.json            # Serialized key-value map of chunk IDs to vector coordinates
 ```
 
 ### The `manifest.json` Standard
 
-Every bundle carries a machine‑readable manifest that describes the dataset and maps each vector ID back to its source document. The schema is strict to guarantee seamless ingestion.
+Every bundle carries a machine‑readable manifest that describes the dataset and maps each vector ID back to its source document and metadata.
 
 ```json
 {
-  "bundle_id": "sc-criminal-1990",
-  "title": "Supreme Court Criminal Procedure Milestone Judgments (1990–2000)",
-  "document_count": 100,
+  "bundle_id": "coi-baseline",
+  "title": "Constitution of India Baseline",
+  "document_count": 1,
   "embedding_model": "nomic-embed-text",
   "dimensions": 768,
-  "categories": ["Criminal Law", "CrPC", "Constitutional Law"],
+  "categories": ["Constitutional Law"],
   "index_mapping": [
     {
-      "vector_id": "vec_00192a",
-      "citation": "1994 SCC (4) 260",
-      "parties": "D.K. Basu v. State of West Bengal",
-      "date": "1996-12-18",
-      "ratio_decidendi": "Guidelines governing arrest and detention to prevent custodial violence."
+      "vector_id": "chunk_0",
+      "text": "WE, THE PEOPLE OF INDIA, having solemnly resolved...",
+      "page_source": "Page 1",
+      "start_line": 1,
+      "end_line": 15,
+      "filename": "Constitution Of India.pdf"
     }
   ]
 }
@@ -87,18 +83,21 @@ Every bundle carries a machine‑readable manifest that describes the dataset an
 | `bundle_id`        | Unique slug (lowercase, hyphens).                                           |
 | `embedding_model`  | Must be `"nomic-embed-text"` – the fixed embedding standard of Legal-Cortex.|
 | `dimensions`       | Always `768` for `nomic-embed-text`.                                         |
-| `index_mapping`    | One entry per chunk; ties a `vector_id` to its citation, parties, date, and legal ratio. |
+| `index_mapping`    | One entry per chunk; ties a `vector_id` to text contents, page source, and lines. |
 
 ---
+
 
 ##  Available Bundles
 
 | Bundle ID             | Target Domain / Era         | Size    | Focus Areas                                                    | Status    |
 |-----------------------|-----------------------------|---------|----------------------------------------------------------------|-----------|
+| `coi-baseline`        | Constitution of India       | ~6.5 MB | Preamble, Fundamental Rights, Organs of State                  |  🟢 Available |
 | `sc-criminal-1990`    | Supreme Court (1990–2000)   | ~45 MB  | Custodial Rights, Bail Jurisprudence, FIR Quashing             |  🔴 Upcoming  |
 | `sc-insolvency-2016`  | SC & NCLAT (2016–2026)      | ~110 MB | IBC amendments, Moratorium interpretations, CIRP               |  🔴 Upcoming  |
 | `sc-taxation-direct`  | Income Tax Landmark Cases   | ~85 MB  | Corporate tax, Assessment procedures, Anti‑evasion             |  🔴 Upcoming  |
 | `bnss-bns-bsa-2023`   | New Criminal Laws Transition| ~20 MB  | Comparative mapping: CrPC → BNSS, IPC → BNS                    |  🔴 Upcoming  |
+
 
 More bundles are being curated. See the [registry](/registry) for planned and in‑progress submissions.
 
@@ -154,35 +153,22 @@ We welcome contributions from advocates, legal‑tech engineers, and researchers
 
 ### Step‑by‑Step Compilation
 
-1. **Gather Documents**  
-   Collect primary legal texts (judgments, statutes, etc.) from official public sources. Save each document as a clean `.txt` file named with a unique slug (e.g., `sc_1996_dk_basu.txt`).
+You can compile a PDF into a compressed bundle (like `coi-baseline.zip`) using the included Python compilation script.
 
-2. **Chunk the Texts**  
-   Use a character‑based splitter with:
-   - **Chunk size:** 1000 characters  
-   - **Overlap:** 200 characters  
-   This preserves contextual continuity between paragraphs.
+1. **Place PDF Data**
+   Save the target document PDF in the `Data/` folder (e.g. `Data/Constitution Of India.pdf`).
 
-3. **Embed Each Chunk**  
-   For every chunk, call the Ollama embedding endpoint:
-   ```python
-   response = ollama.embeddings(model='nomic-embed-text', prompt=chunk_text)
-   vector = response['embedding']  # list of 768 floats
+2. **Run the Compiler Script**
+   Execute the `scripts/compile_bundle.py` utility. This script automatically extracts text page-by-page, chunks it using an adaptive sliding window, requests embeddings from your local Ollama instance, and packages the result:
+   ```bash
+   python3 scripts/compile_bundle.py
    ```
+   *(Note: Ensure you run the script within your active virtual environment. Avoid invoking it with an absolute path like `/bin/python3`, as this bypasses virtual environment libraries like `pypdf`.)*
 
-4. **Build the FAISS Index**  
-   Stack all vectors into a `numpy` array and create a FAISS index (e.g., `IndexFlatIP` for inner product or `IndexFlatL2` for Euclidean). Save it as `vector_store/index.faiss`.  
-   *If you need additional metadata with each vector, you may also pickle a dictionary mapping internal IDs and save it as `index.pkl`.*
 
-5. **Create the `manifest.json`**  
-   Follow the exact schema described [above](#the-manifestjson-standard). Every chunk must have an entry in `index_mapping` that links its `vector_id` to:
-   - Full case citation  
-   - Party names  
-   - Date  
-   - The *ratio decidendi* or principal legal proposition
+3. **Verify the Output**
+   The compiled `.zip` package containing both `manifest.json` and `vectors.json` will be written directly into the `build/` folder (e.g., `build/coi-baseline.zip`).
 
-6. **Bundle Everything**  
-   Place the `raw_judgments/` folder (optional but strongly encouraged), the `vector_store/` folder, and `manifest.json` into a directory named after your `bundle_id`. Compress it as a `.zip` archive.
 
 ### Metadata Rules
 
