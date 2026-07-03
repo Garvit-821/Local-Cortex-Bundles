@@ -105,7 +105,7 @@ More bundles are being curated. See the [registry](/registry) for planned and in
 
 ##  How It Works with Legal-Cortex
 
-The [Legal-Cortex desktop application](https://github.com/your-org/legal-cortex) consumes these packages through a **background downloader** that appends vectors dynamically at runtime.
+The [Legal-Cortex desktop application](https://github.com/Garvit-821/Private-Legal-Research-Agent) consumes these packages through a **background downloader** that appends vectors dynamically at runtime.
 
 1. **Selection** – The user picks a bundle from the “Data Sync Marketplace” modal inside the app.  
 2. **Download** – A temporary HTTPS connection fetches the release payload from this repository.  
@@ -129,7 +129,7 @@ The [Legal-Cortex desktop application](https://github.com/your-org/legal-cortex)
 
 If you want to use these bundles outside of Legal-Cortex:
 
-1. **Clone this repository** (or download individual bundles from the [Releases](https://github.com/your-org/legal-cortex-bundles/releases) page).  
+1. **Clone this repository** (or download individual bundles from the [Releases](https://github.com/Garvit-821/legal-cortex-bundles/releases) page).  
 2. Unzip any bundle and load `vector_store/index.faiss` with FAISS (or `index.pkl` if it contains serialised numpy arrays).  
 3. Parse `manifest.json` to map retrieved vector IDs back to citations and text chunks.  
 4. (Optional) Use the raw text files in `raw_judgments/` for generation or citation verification.
